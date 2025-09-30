@@ -208,3 +208,5 @@ __marimo__/
 
 data/.cache/
 data/MTMC_Tracking_2025/
+
+weights/*.safetensors
