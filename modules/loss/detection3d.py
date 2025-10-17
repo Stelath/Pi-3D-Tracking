@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from .utils import X, Y, Z, SIN_YAW, COS_YAW, CNS, YNS
+from modules.constants import X, Y, Z, SIN_YAW, COS_YAW, CNS, YNS
 
 
 class SparseBox3DLoss(nn.Module):

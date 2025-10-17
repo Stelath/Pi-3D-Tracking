@@ -1,0 +1,31 @@
+# Main configuration file for Pi3Detection3D training
+# Uses Hydra for hierarchical configuration management
+
+defaults:
+  - model: pi3_detection3d
+  - optimizer: muon
+  - scheduler: warmup_cosine
+  - training: default
+  - dataset: mtmc_tracking
+  - _self_
+
+# Experiment settings
+experiment_name: pi3_detection3d
+run_name: ${experiment_name}_${now:%Y%m%d_%H%M%S}
+
+# Output directories
+output_dir: ./outputs/${run_name}
+checkpoint_dir: ${output_dir}/checkpoints
+log_dir: ${output_dir}/logs
+
+# Device settings
+device: cuda
+num_workers: 4
+seed: 42
+
+# Hydra configuration
+hydra:
+  run:
+    dir: ${output_dir}
+  job:
+    chdir: false

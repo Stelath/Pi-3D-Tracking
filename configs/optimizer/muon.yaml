@@ -1,0 +1,21 @@
+# Muon optimizer configuration
+# Muon is an optimizer designed for transformer training with improved convergence
+
+# Note: Using AdamW as placeholder - replace with actual Muon implementation
+_target_: torch.optim.AdamW
+
+lr: ${training.learning_rate}
+weight_decay: 0.01
+betas: [0.9, 0.95]
+eps: 1.0e-8
+
+# Optimizer settings
+amsgrad: false
+
+# TODO: Replace with Muon optimizer when available
+# The Muon optimizer typically has these advantages:
+# - Better convergence for transformers
+# - Improved handling of sparse gradients
+# - More stable training dynamics
+
+# For now, AdamW with these hyperparameters provides good baseline performance

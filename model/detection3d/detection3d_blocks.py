@@ -2,13 +2,9 @@ import torch
 import torch.nn as nn
 import numpy as np
 
-from .utils import (
-    linear_relu_ln,
-    Scale,
-    bias_init_with_prob,
-    xavier_init,
-    X, Y, Z, W, L, H, SIN_YAW, COS_YAW, VX, VY, VZ,
-)
+from modules.ops import linear_relu_ln, Scale
+from modules.initialization import bias_init_with_prob, xavier_init
+from modules.constants import X, Y, Z, W, L, H, SIN_YAW, COS_YAW, VX, VY, VZ
 
 __all__ = [
     "SparseBox3DRefinementModule",

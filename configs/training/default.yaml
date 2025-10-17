@@ -1,0 +1,67 @@
+# Training hyperparameters
+
+# Batch settings
+batch_size: 4
+gradient_accumulation_steps: 1
+effective_batch_size: ${training.batch_size}  # batch_size * accum_steps * num_gpus
+
+# Optimization
+learning_rate: 2.0e-4
+warmup_steps: 2000
+num_epochs: 100
+total_steps: ???  # Will be computed: (num_samples / batch_size) * num_epochs
+
+# Gradient clipping
+gradient_clip_norm: 1.0
+gradient_clip_type: norm  # 'norm' or 'value'
+
+# Mixed precision training
+use_amp: true
+amp_dtype: bfloat16  # 'bfloat16' (for A100/H100) or 'float16'
+
+# Loss weights
+loss_weights:
+  # Box regression loss
+  box: 0.25
+  # Classification loss (focal loss)
+  cls: 2.0
+  # Quality estimation losses
+  centerness: 1.0
+  yawness: 1.0
+
+# Target assignment settings (for SparseBox3DTarget)
+target_assignment:
+  cls_weight: 2.0  # Classification cost weight for matching
+  box_weight: 0.25  # Box cost weight for matching
+  alpha: 0.25  # Focal loss alpha
+  gamma: 2.0  # Focal loss gamma
+
+  # Denoising training (adds noisy queries for robust training)
+  num_dn_groups: 5  # Number of denoising groups
+  dn_noise_scale: 0.5  # Scale of noise added to GT boxes
+  max_dn_gt: 32  # Maximum number of GT boxes for denoising
+  add_neg_dn: true  # Add negative denoising queries
+
+  # Regression weights per dimension
+  # [x, y, z, log_w, log_h, log_l, sin_yaw, cos_yaw, vx, vy]
+  reg_weights: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0]
+
+# Checkpointing
+save_every_n_epochs: 5
+keep_last_n_checkpoints: 3
+
+# Validation
+val_every_n_epochs: 1
+val_batch_size: ${training.batch_size}
+
+# Logging
+log_every_n_steps: 50
+log_gradients: false
+log_weights: false
+
+# Early stopping
+early_stopping:
+  enabled: false
+  patience: 20
+  metric: val_loss
+  mode: min

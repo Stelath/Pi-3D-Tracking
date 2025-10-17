@@ -3,7 +3,7 @@ from typing import Optional
 
 import torch
 
-from .utils import X, Y, Z, W, L, H, SIN_YAW, COS_YAW, VX, CNS
+from modules.constants import X, Y, Z, W, L, H, SIN_YAW, COS_YAW, VX, CNS
 
 
 class SparseBox3DDecoder(object):

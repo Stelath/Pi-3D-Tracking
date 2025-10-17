@@ -1,0 +1,21 @@
+# Model configuration for Pi3Detection3D
+
+_target_: model.model.Pi3Detection3D
+
+# Pi3 backbone settings
+pi3_checkpoint: ./weights/pi3.safetensors  # Path to pretrained Pi3 weights
+freeze_pi3: true  # Keep Pi3 backbone frozen during training
+
+# Detection head settings
+num_classes: ${dataset.num_classes}  # Dynamically set from dataset config
+num_queries: 300  # Number of detection queries
+embed_dim: 256  # Internal embedding dimension
+num_decoder_layers: 6  # Number of transformer decoder layers
+num_heads: 8  # Number of attention heads in transformer
+box_output_dim: 10  # Box dimension: [x,y,z,log_w,log_h,log_l,sin_yaw,cos_yaw,vx,vy]
+with_quality_estimation: true  # Enable centerness/yawness prediction
+
+# Notes:
+# - Pi3 backbone is frozen and loaded from checkpoint
+# - Only detection head parameters are trainable
+# - Supports multi-camera input (B, N_cameras, 3, H, W)
